@@ -3,13 +3,15 @@ import minimist from 'minimist';
 import { transformFileSync } from '@babel/core';
 import { detectMissingKey, getI18nKeys, getTargetFile } from './utils';
 import console from 'console';
+import chalk from 'chalk';
 
+const error = chalk.bold.red;
 const args = minimist(process.argv.slice(2));
 const ignore: string[] = args['ignore']?.split(',') || [];
 const [targetDir] = args['_'];
 
 if (!targetDir) {
-  console.error('目标文件目录不能为空。ex: pluto-escape app/javascript');
+  console.log(error('目标文件目录不能为空。ex: pluto-escape app/javascript'));
   process.exit();
 }
 
@@ -42,13 +44,13 @@ targetFiles.forEach((file) => {
                   hasMissing = true;
                   const [en, cn, hk] = missings;
                   if (en) {
-                    console.error('英文缺失：', en);
+                    console.log(error('英文缺失：', en));
                   }
                   if (cn) {
-                    console.error('简体缺失：', cn);
+                    console.log(error('简体缺失：', cn));
                   }
                   if (hk) {
-                    console.error('翻译缺失：', hk);
+                    console.log(error('翻译缺失：', hk));
                   }
                 }
               }
@@ -63,7 +65,7 @@ targetFiles.forEach((file) => {
               const value = node.value;
               if (/\p{Unified_Ideograph}/u.test(value)) {
                 hasCN = true;
-                console.error('存在中文:', file, value);
+                console.log(error('存在中文:', file, value));
               }
               _path.skip();
             },
@@ -77,7 +79,7 @@ targetFiles.forEach((file) => {
               const value = node.value;
               if (/\p{Unified_Ideograph}/u.test(value)) {
                 hasCN = true;
-                console.error('存在中文:', file, value);
+                console.log(error('存在中文:', file, value));
               }
               _path.skip();
             },
@@ -89,7 +91,7 @@ targetFiles.forEach((file) => {
               });
               if (_hasCN) {
                 hasCN = true;
-                console.error('存在中文:', file, node.quasis);
+                console.log(error('存在中文:', file, node.quasis));
               }
               _path.skip();
             },
