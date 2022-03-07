@@ -44,13 +44,16 @@ targetFiles.forEach((file) => {
                   hasMissing = true;
                   const [en, cn, hk] = missings;
                   if (en) {
-                    console.log(error('英文缺失：', en));
+                    console.log(error('英文缺失：'));
+                    console.log(en);
                   }
                   if (cn) {
-                    console.log(error('简体缺失：', cn));
+                    console.log(error('简体缺失：'));
+                    console.log(cn);
                   }
                   if (hk) {
-                    console.log(error('翻译缺失：', hk));
+                    console.log(error('繁体缺失：'));
+                    console.log(hk);
                   }
                 }
               }
@@ -65,7 +68,8 @@ targetFiles.forEach((file) => {
               const value = node.value;
               if (/\p{Unified_Ideograph}/u.test(value)) {
                 hasCN = true;
-                console.log(error('存在中文:', file, value));
+                console.log(error('存在中文:'));
+                console.log(file, value);
               }
               _path.skip();
             },
@@ -79,7 +83,8 @@ targetFiles.forEach((file) => {
               const value = node.value;
               if (/\p{Unified_Ideograph}/u.test(value)) {
                 hasCN = true;
-                console.log(error('存在中文:', file, value));
+                console.log(error('存在中文:'));
+                console.log(file, value);
               }
               _path.skip();
             },
@@ -91,7 +96,8 @@ targetFiles.forEach((file) => {
               });
               if (_hasCN) {
                 hasCN = true;
-                console.log(error('存在中文:', file, node.quasis));
+                console.log(error('存在中文:'));
+                console.log(file, node.quasis);
               }
               _path.skip();
             },
