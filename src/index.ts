@@ -12,7 +12,7 @@ const [targetDir] = args['_'];
 
 if (!targetDir) {
   console.log(error('目标文件目录不能为空。ex: pluto-escape app/javascript'));
-  process.exit();
+  process.exit(0);
 }
 
 const [targetFiles, en, cn, hk] = getTargetFile(targetDir, ignore);
@@ -27,7 +27,6 @@ const missingKey = (file: string, argument: any) => detectMissingKey(file, argum
 
 let hasMissing = false;
 let hasCN = false;
-
 targetFiles.forEach((file) => {
   transformFileSync(file, {
     ast: false,
@@ -108,8 +107,8 @@ targetFiles.forEach((file) => {
   });
 });
 if (hasMissing) {
-  process.exit(1);
+  process.exit(0);
 }
 if (hasCN) {
-  process.exit(1);
+  process.exit(0);
 }

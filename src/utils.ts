@@ -44,28 +44,26 @@ export function detectMissingKey(
   argument: any,
   keys: [string[], string[], string[]]
 ): [MissingKeyInfo | null, MissingKeyInfo | null, MissingKeyInfo | null] {
-  return keys.map((_keys) => {
-    if (argument.type === 'StringLiteral') {
+  if (argument.type === 'StringLiteral') {
+    return keys.map((_keys) => {
       if (_keys.includes(argument.value)) {
         return null;
       }
-    }
-    if (argument.type === 'TSAsExpression') {
-      return null;
-    }
-    return {
-      file: file,
-      key: argument.value,
-      begion: {
-        line: argument.loc.start.line,
-        column: argument.loc.start.column,
-      },
-      end: {
-        line: argument.loc.end.line,
-        column: argument.loc.end.column,
-      },
-    };
-  }) as [MissingKeyInfo | null, MissingKeyInfo | null, MissingKeyInfo | null];
+      return {
+        file: file,
+        key: argument.value,
+        begion: {
+          line: argument.loc.start.line,
+          column: argument.loc.start.column,
+        },
+        end: {
+          line: argument.loc.end.line,
+          column: argument.loc.end.column,
+        },
+      };
+    }) as [MissingKeyInfo | null, MissingKeyInfo | null, MissingKeyInfo | null];
+  }
+  return [null, null, null];
 }
 
 export function getI18nKeys(files: string[]): string[] {
