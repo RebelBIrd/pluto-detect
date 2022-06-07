@@ -21,15 +21,15 @@ export function getTargetFile(dir: string, ignore: string[]): [string[], string[
     if (/locales\/index\./.test(file)) {
       return false;
     }
-    if (/^src\/locales\/en/.test(file)) {
+    if (/^src\/locales.*\/en/.test(file)) {
       enLocaleFiles.push(file);
       return false;
     }
-    if (/^src\/locales\/zh-CN/.test(file)) {
+    if (/^src\/locales.*\/zh-CN/.test(file)) {
       cnLocaleFiles.push(file);
       return false;
     }
-    if (/^src\/locales\/zh-HK/.test(file)) {
+    if (/^src\/locales.*\/zh-HK/.test(file)) {
       hkLocaleFiles.push(file);
       return false;
     }
